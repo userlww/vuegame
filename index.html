@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="scripts/vue.js"></script>
+	<!-- <link href="//cdn.bootcss.com/foundation/6.3.1/css/foundation.min.css" rel="stylesheet"> -->
+	<link href="https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+</head>
+<body>
+	<div id="app">
+		<section class="row container">
+			<div class="col-md-5  item">
+				<h1 class="text-center" style="color:green">玩家</h1>
+				<div class="healthbar" style="border:1px solid green">
+					<div 
+					    class="healthbar text-center "    style="background-color:green;  margin: 0; color:white;"
+					    :style="{width: playerHealth + '%'}">
+						{{ playerHealth  }}
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5 col-md-offset-2  item">
+				<h1 class="text-center" style="color:red">怪兽</h1>
+				<div class="healthbar">
+					<div class="healthbar text-center" style="background-color: #e0474c;  margin: 0; color:white;"
+                         :style="{width:monsterHealth + '%' }">
+						{{ monsterHealth }}
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="row controls" v-if="!gameIsRunning">
+			<div class="small-12 columns">
+				<button id="start-game" @click="startGame">开始新游戏</button>
+			</div>
+		</section>
+		<section class="row controls" v-else>
+			<div class="small-12 columns">
+				<button id="attack" @click="attack">攻击</button>
+				<button id="special-attack" @click="specialAttack" >技能</button>
+				<button id="heal" @click="heal">治疗</button>
+				<button id="give-up" @click="giveUp">放弃游戏</button>
+			</div>
+		</section>
+		<section class="row log" v-if="turns.length > 0">
+			<div class="small-12 columns">
+				<ul>
+					<li v-for="turn in turns"
+					    :class="{'player-turn' : turn.isPlayer, 'monster-turn' : !turn.isPlayer}">
+						{{ turn.text }}
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+	<script src="scripts/app.js"></script>
+</body>
+</html>
